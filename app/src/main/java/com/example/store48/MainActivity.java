@@ -49,21 +49,59 @@ public class MainActivity extends AppCompatActivity  {
         rbMembership = findViewById(R.id.rbMembership);
         btnSelesai = findViewById(R.id.button2);
 
-        rbMieSagu.setOnClickListener(rb1 -> { harga = 10000 + 2000;  });
-        rbSusuKedelai.setOnClickListener(rb2 -> { harga2 = 6000 + 2500;  });
-        rbSempolet.setOnClickListener(rb3 -> { harga3 = 10000 + 3000;  });
-        rbBolosagu.setOnClickListener(rb4 -> { harga4 = 15000 + 3500;  });
+        String jmlhMie = etTotal.getText().toString();
+        String jmlhSusu = etTotal2.getText().toString();
+        String jmlhSempolet = etTotal3.getText().toString();
+        String jmlhBolu = etTotal4.getText().toString();
+
+
+
+        rbMieSagu.setOnClickListener(rb1 -> {
+            harga = (10000 + 2000);
+        });
+
+        rbSusuKedelai.setOnClickListener(rb2 -> {
+            harga2 = (6000 + 2500);
+        });
+
+        rbSempolet.setOnClickListener(rb3 -> {
+            harga3 = (10000 + 3000);
+        });
+
+        rbBolosagu.setOnClickListener(rb4 -> {
+            harga4 = (15000 + 3500);
+        });
+
         rbMembership.setOnClickListener(rb5 -> {
             member = 0.05;
         });
-    btnSelesai.setOnClickListener(btn -> {
-        hasil = harga + harga2 + harga3 + harga4;
-        double hasil3 = hasil * member;
-        double hasil4 = hasil - hasil3;
-        int hasil1 = (int) hasil4;
-        String hasil2 = Integer.toString(hasil1);
-        tvhasil.setText("Rp. " + hasil2);
 
-    });
-        }
+        btnSelesai.setOnClickListener(btn -> {
+            // Mengambil nilai dari EditText untuk setiap item
+            int jumlahMieSagu = Integer.parseInt(etTotal.getText().toString());
+            int jumlahSusuKedelai = Integer.parseInt(etTotal2.getText().toString());
+            int jumlahSempolet = Integer.parseInt(etTotal3.getText().toString());
+            int jumlahBoluSagu = Integer.parseInt(etTotal4.getText().toString());
+
+            // Menghitung total harga untuk setiap item
+            int totalHargaMieSagu = (10000 + 2000) * jumlahMieSagu;
+            int totalHargaSusuKedelai = (6000 + 2500) * jumlahSusuKedelai;
+            int totalHargaSempolet = (10000 + 3000) * jumlahSempolet;
+            int totalHargaBoluSagu = (15000 + 3500) * jumlahBoluSagu;
+
+            // Menjumlahkan total harga dari semua item
+            int totalHarga = totalHargaMieSagu + totalHargaSusuKedelai + totalHargaSempolet + totalHargaBoluSagu;
+
+            // Menghitung total harga setelah diskon member
+            double diskon = 1.0;
+            if (rbMembership.isChecked()) {
+                diskon = 0.95; // Diskon 5% untuk member
+            }
+            double totalHargaSetelahDiskon = totalHarga * diskon;
+
+            // Menampilkan total harga
+            tvhasil.setText("Rp. " + totalHargaSetelahDiskon);
+        });
+
     }
+}
